@@ -1,0 +1,248 @@
+<template>
+
+  <view bindscrollstart="scrollStart" bindscrollend="scrollEnd">
+    <ui-row height="100" class="head">
+      <ui-col vertical-align="middle" align="left" width="75" space-left="15">
+        <image src="http://images.uileader.com/20180424/35c9fb41-0ace-40f7-abaf-eedc879add5b.png"></image>
+      </ui-col>
+      <ui-col vertical-align="middle" align="left">
+        <view class="title1">立即登录</view>
+        <view class="title2">首次登录 领888元大礼包</view>
+      </ui-col>
+      <ui-col vertical-align="middle" align="right" width="60" space-right="10">
+        <ui-icon type="arrow-right" size="14" color="#DFDDDF"></ui-icon>
+      </ui-col>
+    </ui-row>
+    <ui-row height="90" class="head_nav" space-bottom="10">
+      <ui-col vertical-align="middle" align="center">
+        <view>
+          <ui-icon type="code" size="24" color="#212121"></ui-icon>
+        </view>
+        <text>扫一扫</text>
+      </ui-col>
+      <ui-col vertical-align="middle" align="center">
+        <view>
+          <ui-icon type="clock-in" size="24" color="#212121"></ui-icon>
+        </view>
+        <text>早起打卡</text>
+      </ui-col>
+      <ui-col vertical-align="middle" align="center">
+        <view>
+          <ui-icon type="calendar" size="24" color="#212121"></ui-icon>
+        </view>
+        <text>日历</text>
+      </ui-col>
+      <ui-col vertical-align="middle" align="center">
+        <view>
+          <ui-icon type="task" size="24" color="#212121"></ui-icon>
+        </view>
+        <text>任务</text>
+      </ui-col>
+    </ui-row>
+
+    <view class="column_wrap" wx:for="{{ userList }}" wx:for-item="item">
+      <ui-row height="50" class="column_list" wx:for="{{ item.content }}" wx:for-item="item2">
+        <ui-col vertical-align="middle" align="center" width="40">
+          <ui-icon type="{{ item2.icon }}" size="24" color="{{ item2.iconColor }}"></ui-icon>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left" class="line">
+          <view>{{ item2.name }}</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="right" width="40" space-right="10" class="line">
+          <ui-icon type="arrow-right" size="14" color="#DFDDDF"></ui-icon>
+        </ui-col>
+      </ui-row>
+    </view>
+
+
+
+
+
+  </view>
+
+</template>
+
+<script>
+// user.js
+export default {
+  config: {
+    navigationBarVisible: true,
+    backgroundColor: '#F9F9F9',
+    statusBarColor: 'black',
+    navigationBarTitleText: '我的'
+  },
+  data: {
+    userList: [{
+        content: [{
+            icon: 'card-bag',
+            iconColor: '#1651F0',
+            name: '卡包'
+          },
+          {
+            icon: 'bill',
+            iconColor: '#3C60FD',
+            name: '账单'
+          },
+          {
+            icon: 'vip',
+            iconColor: '#FBB316',
+            name: '会员中心'
+          },
+          {
+            icon: 'home',
+            iconColor: '#D39C5B',
+            name: '我的资产'
+          }
+        ]
+      },
+      {
+        content: [{
+            icon: 'white-bar',
+            iconColor: '#1651F0',
+            name: '我的白条'
+          },
+          {
+            icon: 'gold-bar',
+            iconColor: '#F99C1A',
+            name: '我的金条'
+          },
+          {
+            icon: 'anquan',
+            iconColor: '#3AB585',
+            name: '我的保险'
+          },
+          {
+            icon: 'crowd-funding',
+            iconColor: '#1651F0',
+            name: '我的众筹'
+          }
+        ]
+      },
+      {
+        content: [{
+            icon: 'crowd-funding01',
+            iconColor: '#F99C1A',
+            name: '我的收藏'
+          },
+          {
+            icon: 'attention',
+            iconColor: '#F99C1A',
+            name: '我的关注'
+          },
+          {
+            icon: 'record',
+            iconColor: '#1651F0',
+            name: '浏览记录'
+          },
+          {
+            icon: 'gift',
+            iconColor: '#E54B40',
+            name: '介绍给朋友'
+          },
+          {
+            icon: 'customer-service',
+            iconColor: '#1651F0',
+            name: '专属客服'
+          }
+        ]
+      }
+    ],
+    className: ''
+  },
+
+  onReady() {},
+
+  scrollStart() {
+    this.className = 'start'
+  },
+  scrollEnd() {
+    this.className = ''
+  },
+  login() {
+    // import(`#/pages/dialogs/loginInterface.ui`).then((content) => {
+    //   ui.showDialog({
+    //     // 窗体标题
+    //     content: content,
+    //     statusBarColor: 'dark',
+    //     // 向dialog1.ui传入数据
+    //     data: {
+    //     },
+    //     // 接收ui.hideDialog回传的数据
+    //     onHide: (data) => {
+    //     }
+    //   })
+    // })
+  },
+  // 扫一扫
+  code() {
+    // ui.setStatusBarStyle({ style: 'light' })
+    wx.scanCode({
+      backgroundColor: '#000',
+      color: '#fff',
+      success: res => {
+        console.log(res)
+        // ui.showToast({ title: '扫到了' + res.result+',开心不～' })
+      },
+      complete() {
+        // ui.setStatusBarStyle({ style: 'dark' })
+      }
+    })
+  }
+}
+</script>
+
+<style lang="less">
+// user.less
+.nav_bar {
+  background-color: #fff;
+}
+
+.head {
+  background-color: #fff;
+  .mix-1px(0, 0, 1, 0, #e0e0e0);
+  image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .title1 {
+    font-size: 16px;
+    color: #242424;
+  }
+  .title2 {
+    font-size: 12px;
+    color: #BDA06D;
+  }
+}
+
+.head_nav {
+  background-color: #fff;
+  color: #747474;
+  text {
+    margin-top: 5px;
+  }
+}
+
+.column_wrap {
+  background-color: #fff;
+  margin-bottom: 10px;
+  .column_list {
+    .line {
+      .mix-1px(0, 0, 1, 0, #e0e0e0);
+    }
+  }
+}
+
+.invite {
+  width: 50px;
+  height: 50px;
+  background: url(http://images.uileader.com/20180424/dc201b7a-4b82-46c5-a683-0f7f472e9239.png) no-repeat center center;
+  background-size: 100%;
+  transition: all .25s ease-in;
+  bottom: 100px;
+  right: 5px;
+  &.start {
+    right: -60px;
+  }
+}
+</style>

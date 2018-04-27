@@ -1,0 +1,629 @@
+<template>
+
+  <view>
+    <view class="banner">
+    </view>
+
+    <view class="sticky-in-relative-container" id="suggestion-title">
+      <view>
+        <ui-row height="46" class="nav_top">
+          <ui-col vertical-align="middle" align="center" class="{{ item.active }}" wx:for="{{ navList }}">
+            <ui-row height="46">
+              <ui-col vertical-align="middle" align="right" space-right="5">
+                <view>
+                  {{ item.name}}
+                </view>
+              </ui-col>
+              <ui-col vertical-align="middle" align="left" span="4" space-left="5">
+                <ui-icon name="{{item.arrow}}" size="8" color="#878787;" class="{{ item.active }}"></ui-icon>
+              </ui-col>
+            </ui-row>
+          </ui-col>
+        </ui-row>
+      </view>
+    </view>
+    <view class="content_list" bindtap="coffers" wx:for="{{ content_list }}">
+      <ui-row height="50" class="title">
+        <ui-col vertical-align="middle" align="left">
+          <view>{{ item.title }}</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" space-right="10" width="40">
+          <ui-icon name="arrow-right" size="16" color="#9B9B9B"></ui-icon>
+        </ui-col>
+      </ui-row>
+      <ui-row height="80" class="content">
+        <ui-col vertical-align="middle" align="left" width="150">
+          <view class="t-1">{{ item.number }}</view>
+          <text class="t-2">{{ item.smallTitle }}</text>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <view>{{ item.time }}
+            <text>{{ item.time2 }}</text>
+          </view>
+          <text class="text2">{{ item.smallTitle2 }}</text>
+        </ui-col>
+      </ui-row>
+    </view>
+
+    <ui-popup position="top" top="{{ popupTop }}" height="50" mask-style="{{ { top: popupTop+'px' } }}" bindhide="popHide" bindshow="popShow" show="{{show1 }}">
+      <view class="top_pop">
+        <scroll-view scroll-y="scroll-y">
+          <form>
+            <view class="time_content">
+              <ui-tags data="{{eatTime}}" bindchange="singleTap"></ui-tags>
+            </view>
+          </form>
+        </scroll-view>
+      </view>
+    </ui-popup>
+
+    <ui-popup position="top" top="{{ popupTop }}" height="100" mask-style="{{ { top: popupTop+'px' } }}" bindhide="popHide1" bindshow="popShow1" show="{{show2 }}">
+      <view class="top_pop">
+        <scroll-view scroll-y="scroll-y">
+          <form>
+            <view class="time_content">
+              <ui-tags data="{{eatTime1}}" bindchange="singleTap1"></ui-tags>
+            </view>
+          </form>
+        </scroll-view>
+      </view>
+    </ui-popup>
+
+    <ui-popup position="top" top="{{ popupTop }}" height="50" mask-style="{{ { top: popupTop+'px' } }}" bindhide="popHide2" bindshow="popShow2" show="{{ show3 }}">
+      <view class="top_pop">
+        <scroll-view scroll-y="scroll-y">
+          <form>
+            <view class="time_content">
+              <ui-tags data="{{eatTime2}}" bindchange="singleTap2"></ui-tags>
+            </view>
+          </form>
+        </scroll-view>
+      </view>
+    </ui-popup>
+
+    <ui-popup position="top" top="{{ popupTop }}" height="280" mask-style="{{ { top: popupTop+'px' } }}" bindhide="popHide3" bindshow="popShow3" show="{{ show4 }}">
+      <view class="top_pop">
+        <scroll-view scroll-y="scroll-y">
+          <form>
+            <view class="time_content">
+              <text>收益方式</text>
+              <ui-tags data="{{eatTime3}}" bindchange="singleTap3_1"></ui-tags>
+            </view>
+            <view class="time_content">
+              <text>起投金额1</text>
+              <ui-tags data="{{service3}}" bindchange="singleTap3_2"></ui-tags>
+            </view>
+          </form>
+        </scroll-view>
+        <ui-row border-top="border-top" height="50" class="sub">
+          <ui-col vertical-align="middle" align="center" border-right="border-right" bindtap="formReset">
+            重置
+          </ui-col>
+          <ui-col vertical-align="middle" align="center" bindtap="change3" class="complete">
+            完成
+          </ui-col>
+        </ui-row>
+      </view>
+    </ui-popup>
+  </view>
+
+</template>
+
+<script>
+// allProducts.js
+export default {
+  config: {
+    navigationBarVisible: true,
+    statusBarColor: 'black',
+    backgroundColor: '#F7F7F7',
+    navigationBarTitleText: '全部产品'
+  },
+  data: {
+    swiperHeight: wx.WIN_WIDTH / 1125 * 263,
+    scroHeight: parseInt(wx.DEFAULT_CONTENT_HEIGHT * 0.8),
+    eatTime: [{
+        text: '不限',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '收益率由高到低',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }
+    ],
+    eatTime1: [{
+        text: '不限',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '保险',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '养老保障',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '券商',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '转让资产',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '二级市场',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }
+    ],
+    eatTime2: [{
+        text: '不限',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '0-3个月',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '3-6个月',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '6-12个月',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '12个月以上',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }
+    ],
+    eatTime3: [{
+        text: '不限',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '到期自动承诺',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '自动续存',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }
+    ],
+    service: [{
+        text: '买单',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '在线点菜',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '外卖送餐',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '在线排队',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '预订',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }
+    ],
+    service3: [{
+        text: '不限',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '0-1000元',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '1001-10000元',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '10001元-50000元',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      },
+      {
+        text: '50001以上',
+        tagClass: 'tag-before-00',
+        tagSelectedClass: 'select-class',
+        checked: false
+      }
+    ],
+    navList: [{
+        name: '综合排序',
+        active: '',
+        arrow: 'slide_down',
+        bindtap: 'openPopup1'
+      },
+      {
+        name: '产品类型',
+        active: '',
+        arrow: 'slide_down',
+        bindtap: 'openPopup2'
+      },
+      {
+        name: '期限',
+        active: '',
+        arrow: 'slide_down',
+        bindtap: 'openPopup3'
+      },
+      {
+        name: '更多',
+        active: '',
+        arrow: 'slide_down',
+        bindtap: 'openPopup4'
+      }
+    ],
+    winWidth: wx.WIN_WIDTH,
+    popupTop: wx.DEFAULT_HEADER_HEIGHT + 46,
+    show1: false,
+    show2: false,
+    show3: false,
+    show4: false,
+    switch1: false,
+    switch2: false,
+
+    show: {},
+    current: 0,
+    className: 'active',
+    className2: '',
+    isDistrict: true,
+    isSubway: false,
+    content_list: [{
+        title: '养老保险 | 建行养老宜兴',
+        number: '5.13%',
+        smallTitle: '七日年化收益率',
+        time: '产品期限',
+        time2: '30天',
+        smallTitle2: '小金库理财专享'
+      },
+      {
+        title: '保险 | 京洪年花',
+        number: '5.80%',
+        smallTitle: '历史年华投资回报率',
+        time: '产品期限',
+        time2: '30天',
+        smallTitle2: '小金库理财专享'
+      },
+      {
+        title: '养老保险 | 建行养老宜兴',
+        number: '5.13%',
+        smallTitle: '七日年化收益率',
+        time: '产品期限',
+        time2: '30天',
+        smallTitle2: '小金库理财专享'
+      },
+      {
+        title: '养老保险 | 国寿嘉年花',
+        number: '5.13%',
+        smallTitle: '七日年化收益率',
+        time: '产品期限',
+        time2: '30天',
+        smallTitle2: '小金库理财专享'
+      },
+      {
+        title: '防化保险 | 车贷你说成功率',
+        number: '5.13%',
+        smallTitle: '七日年化收益率',
+        time: '产品期限',
+        time2: '30天',
+        smallTitle2: '小金库理财专享'
+      }
+    ]
+  },
+
+  onReady() {},
+
+  change(val) {
+    this.navList[0].name = val.join('-')
+    this.show1 = false
+  },
+  change1(result) {
+    this.navList[1].name = result.area
+    this.show2 = false
+  },
+  change2(val) {
+    this.navList[2].name = val.join('-')
+    this.show3 = false
+  },
+  change3(val) {
+    this.show4 = false
+  },
+
+  singleTap(opt) {
+    this.eatTime.forEach((item, index) => {
+      item.checked = index === opt
+    })
+  },
+  singleTap1(opt) {
+    this.eatTime1.forEach((item, index) => {
+      item.checked = index === opt
+    })
+  },
+  singleTap2(opt) {
+    this.eatTime2.forEach((item, index) => {
+      item.checked = index === opt
+    })
+  },
+  singleTap3_1(opt) {
+    this.eatTime3.forEach((item, index) => {
+      item.checked = index === opt
+    })
+  },
+  singleTap3_2(opt) {
+    this.service3.forEach((item, index) => {
+      item.checked = index === opt
+    })
+  },
+
+  formReset() {
+    this.switch1 = false
+    this.switch2 = false
+    this.eatTime.forEach((item, index) => {
+      item.checked = false
+    })
+    this.service.forEach((item, index) => {
+      item.checked = false
+    })
+    this.eatNumber.forEach((item, index) => {
+      item.checked = false
+    })
+  },
+  popHide() {
+    this.navList[0].active = ''
+  },
+  popShow() {
+    this.navList[0].active = 'active'
+  },
+  popHide1() {
+    this.navList[1].active = ''
+  },
+  popShow1() {
+    this.navList[1].active = 'active'
+  },
+  popHide2() {
+    this.navList[2].active = ''
+  },
+  popShow2() {
+    this.navList[2].active = 'active'
+  },
+  popHide3() {
+    this.navList[3].active = ''
+  },
+  popShow3() {
+    this.navList[3].active = 'active'
+  },
+  handleChange(index, key) {
+    this[key] = index
+  },
+  handleContentChange(index, key) {
+    this[key] = index
+  },
+  select(result) {
+    this.navList[1].name = result.city
+    this.show2 = false
+  },
+  districtShow() {
+    this.className = 'active'
+    this.className2 = ''
+    this.isDistrict = true
+    this.isSubway = false
+  },
+  subwayShow() {
+    this.className = ''
+    this.className2 = 'active'
+    this.isDistrict = false
+    this.isSubway = true
+  },
+
+  coffers() {
+    wx.navigateTo({
+      url: '/pages/coffers'
+    })
+  },
+  navigateBack() {
+    wx.navigateBack()
+  }
+}
+</script>
+
+<style lang="less">
+// allProducts.less
+page {
+  background-color: #f7f7f7;
+}
+
+.nav_bar {
+  background-color: #fff;
+  border-bottom: 1px solid #f7f7f7;
+  view {
+    color: #4E4E4E;
+    font-size: 16px;
+  }
+}
+
+
+.header1 {
+  background-color: #fff;
+
+}
+
+.banner {
+  image {
+    width: 100%;
+  }
+}
+
+
+.sticky-in-relative-container {
+  position: relative;
+  height: 46px;
+  margin-bottom: 10px;
+}
+
+.nav_top {
+  background: #fff;
+  font-size: 14px;
+  color: #878787;
+  .mix-1px(0, 0, 1, 0, #dedede);
+  .ui-col.active {
+    color: #656565;
+  }
+  .ui-row {
+    width: 100%;
+    height: 100%;
+    view {
+      width: 100%;
+      .mix-text-overflow();
+    }
+  }
+}
+
+.top_pop {
+  background: #fff;
+}
+
+.ui-icon {
+  display: inline-block;
+  transform: rotate(0deg);
+  transition: all .3s ease-in;
+  &.active {
+    transform: rotate(180deg); // color:#09C2B1!important;
+  }
+}
+
+.time_content {
+  padding: 10px;
+  text {
+    color: #AFAFAF;
+    font-size: 12px;
+    line-height: 40px;
+  }
+  .tag-before-00 {
+    // width: 90px;
+    padding: 0 10px;
+    color: #555;
+    border: 1px solid #E3E3E3;
+    border-radius: 3px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+  }
+  .select-class {
+    // width: 90px;
+    padding: 0 10px;
+    border-radius: 3px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px; // background: #00C5B4;
+    border: 1px solid #3C52FE;
+    color: #3C52FE;
+  }
+}
+
+.sub {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  .complete {
+    color: #3C52FE;
+  }
+}
+
+
+.content_list {
+  background-color: #fff;
+  padding-left: 15px;
+  margin-bottom: 10px;
+  .title {
+    .mix-1px(0, 0, 1, 0, #dedede);
+    view {
+      color: #5F5F5F;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+  .content {
+    text {
+      font-size: 14px;
+      color: #9B9B9B;
+      &.text2 {
+        border: 1px solid #dedede;
+        line-height: 18px;
+        padding: 0 3px;
+      }
+    }
+    .t-2 {
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    view {
+      color: #3E3E3E;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .t-1 {
+      color: #F6610D;
+      font-size: 18px;
+    }
+  }
+}
+</style>

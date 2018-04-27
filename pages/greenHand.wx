@@ -1,0 +1,375 @@
+<template>
+
+  <view>
+    <view class="top_tip" hidden="{{ !isTip  }}">
+      <view class="title">定期理财最优质产品</view>
+      <ui-row height="40">
+        <ui-col vertical-align="middle" align="right">
+          <view>精选最优</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="21">
+          <view class="line"></view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="60">
+          <view>收益稳健</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center" width="21">
+          <view class="line"></view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="left">
+          <view>安全理财</view>
+        </ui-col>
+      </ui-row>
+      <view class="close" bindtap="close">
+        <ui-icon type="close" size="16" color="#fff"></ui-icon>
+      </view>
+    </view>
+
+    <view class="wrap">
+      <view class="banner">
+      </view>
+      <ui-row height="30" class="time">
+        <ui-col vertical-align="bottom" align="right">
+          <view>短期</view>
+        </ui-col>
+        <ui-col vertical-align="bottom" align="center" width="21">
+          <view class="line"></view>
+        </ui-col>
+        <ui-col vertical-align="bottom" align="left">
+          <view>1个月</view>
+        </ui-col>
+      </ui-row>
+
+      <ui-row height="60" class="time2">
+        <ui-col vertical-align="middle" align="center">
+          <view>
+            <text>超短期</text>
+            <text>|</text>
+            <text>14天</text>
+          </view>
+          <view>4.70%</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view class="center_num">5.14%</view>
+        </ui-col>
+        <ui-col vertical-align="middle" align="center">
+          <view>
+            <text>中短期</text>
+            <text>|</text>
+            <text>49天</text>
+          </view>
+          <view>5.06%</view>
+        </ui-col>
+      </ui-row>
+      <view class="earnings">七日年化收益率</view>
+      <view class="exclusive">
+        <text>小金库理财金专享</text>
+      </view>
+
+
+      <view class="ruler_wrap">
+        <view class="shift_to">我要转入(元)</view>
+        <view class="ruler_win">
+          <ui-ruler height="35" key-line-height="10" line-height="5" min="0" max="100000" key-step="1000" step="100" number-size="12" line-width="1" step-width="5" pointer-width="1" value="{{into}}" value-style="{{valueStyle}}"></ui-ruler>
+        </view>
+        <view class="earnings">总计可得(元)</view>
+        <view class="money">0.00</view>
+        <view class="earnings">(据七日年化收益率1个月可赚41.28)</view>
+      </view>
+
+      <ui-summary height="85">
+        <view class="column">
+          <ui-row wx:for="{{ column }}">
+            <ui-col vertical-align="top" align="left" width="80" space-left="10">
+              <view>{{ item.title }}</view>
+            </ui-col>
+            <ui-col vertical-align="top" align="left" space-right="10">
+              <text>{{ item.content }}</text>
+            </ui-col>
+          </ui-row>
+          <!-- <ui-row height="40">
+            <ui-col vertical-align="middle" align="left"  space-left="10">
+              <ui-text>查看更多详情</ui-text>
+            </ui-col>
+            <ui-col vertical-align="middle" align="right" space-right="10">
+              <ui-icon name="arrow-right" size="16" color="#E0E0E0"></ui-icon>
+            </ui-col>
+          </ui-row> -->
+        </view>
+      </ui-summary>
+
+    </view>
+    <ui-fixed-view bottom="0" right="0" left="0">
+      <view style="background-color:#fff">
+        <view class="text">这款产品非常抢手，今日已有
+          <text>3641</text>人购买</view>
+        <view class="buy">立即购买</view>
+      </view>
+    </ui-fixed-view>
+  </view>
+
+</template>
+
+<script>
+// greenHand.js
+export default {
+  config: {
+    navigationBarVisible: true,
+    statusBarColor: 'black',
+    backgroundColor: '#F9F9F9',
+    title: '小白理财',
+    navigationBarTitleText: '小白理财'
+  },
+  data: {
+    column: [{
+        title: '产品类型',
+        content: '养老保险'
+      },
+      {
+        title: '产品名称',
+        content: '践行养老压根不老'
+      },
+      {
+        title: '转入规则',
+        content: '15:00前购买成功，发行机构会在第二个交易日确认。15:00后购买成功，发行机构会在第三个交易日确认（交易日是指排除周末及法定节假日的时间）'
+      },
+      {
+        title: '收益规则',
+        content: '从发行机构确认后半天，开始计算收益。第二个自然日展示收益。周末及法定节假日正常计算'
+      },
+      {
+        title: '取出规则',
+        content: '用户至少在赎回开放日前一天预约赎回，该产品美格30天为一个赎回开放日，最近一次赎回开放日为2018-02-14。预约成功后，资金将会在指定赎回开放日后1个交易日内转入原支付账户（具体时间视银行而定），如遇节假日顺延，节假日期间仍享受收益。'
+      }
+    ],
+    isTip: true,
+    into: 0,
+    isApp: wx.IS_APP,
+    valueStyle: {
+      color: '#F6620F',
+      fontSize: '28px',
+      top: '-54px',
+      borderBottom: '1px dashed #E0E0E0',
+      padding: '0 10px',
+      left: '50%',
+      transform: 'translate(-50%, 0%)'
+    }
+  },
+
+  onReady() {},
+
+  close() {
+    this.setData({
+      isTip:false
+    })
+  },
+  navigateBack() {
+    wx.navigateBack()
+  },
+  share() {
+    if (this.isApp) {
+      wx.app.shareMask = true
+      wx.app.href =
+        'http://www.uileader.com/touchui_jdfinance/#/pages/share/greenHand/greenHand'
+    }
+  },
+  // 扫一扫
+  code() {
+    wx.setStatusBarStyle({
+      style: 'light'
+    })
+    wx.scanCode({
+      backgroundColor: '#000',
+      color: '#fff',
+      success: res => {
+        console.log(res)
+        wx.showToast({
+          title: '扫到了' + res.result + ',开心不～'
+        })
+      },
+      complete() {
+        wx.setStatusBarStyle({
+          style: 'dark'
+        })
+      }
+    })
+  },
+  bindchange(e) {
+    console.log(e)
+    this.into = e
+  }
+}
+</script>
+
+<style lang="less">
+// greenHand.less
+.nav_bar {
+  background: linear-gradient(to right, #3C47FC, #3D66FC);
+  .title {
+    color: #fff;
+    font-size: 16px;
+  }
+}
+
+.top_tip {
+  background: linear-gradient(to right, #3C47FC, #3D66FC);
+  padding: 10px 0;
+  position: relative;
+  .title {
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+  }
+  .ui-row {
+    view {
+      font-size: 14px;
+      color: #fff;
+    }
+    .line {
+      height: 14px;
+      width: 1px;
+      background-color: #556bfd;
+    }
+  }
+  .close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+}
+
+.wrap {
+  background-color: #fff;
+  padding-bottom: 90px;
+}
+
+.banner {
+  padding: 10px 0;
+  image {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+.ui-row {
+  &.time {
+    view {
+      color: #F77323;
+      font-size: 16px;
+      line-height: 16px;
+    }
+    .line {
+      height: 14px;
+      width: 1px;
+      background-color: #F77323;
+    }
+  }
+
+  &.time2 {
+    text {
+      font-size: 14px;
+      color: #A2A2A2;
+    }
+    view {
+      font-size: 20px;
+      color: #A2A2A2;
+    }
+    .center_num {
+      color: #F77323;
+      font-size: 30px;
+      font-weight: 500;
+    }
+  }
+}
+
+.earnings {
+  color: #A2A2A2;
+  font-size: 14px;
+  text-align: center;
+}
+
+.exclusive {
+  color: #A2A2A2;
+  font-size: 14px;
+  text-align: center;
+  text {
+    display: inline-block;
+    padding: 0 3px;
+    line-height: 20px;
+    border: 1px solid #A2A2A2;
+    border-radius: 25px;
+  }
+}
+
+.ruler_wrap {
+  padding-top: 20px;
+  text-align: center;
+  position: relative;
+  .shift_to {
+    text-align: center;
+    font-size: 14px;
+    color: #969696;
+    margin-bottom: 50px;
+  }
+  .ruler_win {
+    .mix-1px(0, 0, 1, 0, #d6d6d6);
+  }
+
+  ui-ruler {
+    margin-bottom: 20px;
+  }
+  .money {
+    font-size: 20px;
+    color: #385AFE;
+  }
+}
+
+ui-summary {
+  margin-top: 20px;
+}
+
+.column {
+  .mix-1px(1, 0, 1, 0, #d6d6d6);
+  .ui-row {
+
+    padding: 10px 0;
+    text {
+      color: #6F6F6F;
+      font-size: 14px;
+    }
+    view {
+      font-size: 14px;
+      color: #A7A7A7;
+    }
+    &:nth-child(even) {
+      background: #F6F6F6;
+    }
+  }
+}
+
+ui-summary .button {
+  .mix-1px(1, 0, 0, 0, #d6d6d6);
+}
+
+ui-fixed-view {
+  width: 100%;
+  background-color: #fff;
+  text-align: center;
+  padding: 0 20px;
+  box-shadow: 0px 6px 23px 0px #a0a0a0;
+  .text {
+    font-size: 14px;
+    color: #A7A7A7;
+    line-height: 40px;
+    text {
+      color: #F76814;
+    }
+  }
+  .buy {
+    line-height: 50px;
+    background-color: #4174E9;
+    color: #fff;
+    font-size: 16px;
+  }
+}
+</style>

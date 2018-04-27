@@ -1,0 +1,133 @@
+<template>
+  <page></page>
+</template>
+
+<script>
+import system from './static/utils/system'
+
+export default {
+  //全局变量
+  globalData: {},
+
+  config: {
+    pages: [
+      'pages/greenHand',
+      'pages/allProducts',
+      'pages/user',
+      'pages/coffers'
+    ],
+    theme: {
+      'theme-color': '#3399ff'
+    },
+    window: {
+      scrollType: 'div',
+      navigationBarBackgroundColor: '#ffffff',
+      navigationBarTextStyle: 'black',
+      navigationBarBorderColor: 'rgba(231, 231, 231, 0.6)'
+    },
+    tabBar: {
+      color: '#7a7e83',
+      selectedColor: '#39f',
+      borderColor: 'rgba(231, 231, 231, 0.6)',
+      backgroundColor: '#fff',
+      list: [{
+          pagePath: 'pages/greenHand',
+          iconPath: 'images/index.png',
+          selectedIconPath: 'images/index2.png',
+          text: '首页'
+        },
+        {
+          pagePath: 'pages/allProducts',
+          iconPath: 'images/quanbu.png',
+          selectedIconPath: 'images/quanbu2.png',
+          text: '全部产品'
+        },
+        {
+          pagePath: 'pages/user',
+          iconPath: 'images/user.png',
+          selectedIconPath: 'images/user2.png',
+          text: '我的'
+        }
+      ]
+    }
+  },
+  data: {
+    WIN_WIDTH: wx.WIN_WIDTH,
+    tabIndex: 0,
+    tabBarList: [],
+    navStyle: {},
+    tabBar: {},
+    tabBarHeight: 56,
+    headerHeight: wx.DEFAULT_HEADER_HEIGHT,
+    paths: [],
+    barHeight: wx.STATUS_BAR_HEIGHT,
+    showSlideMenu: false
+  },
+
+  onReady() {},
+
+  onLaunch() {
+    system.attachInfo()
+  }
+}
+</script>
+
+<style lang="less">
+@import './static/styles/index.less';
+
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.touchui-hover {
+  background-color: #eee !important;
+}
+
+.iphonex-bottom {
+  height: env(safe-area-inset-bottom);
+  background-color: #fff;
+  width: 100%;
+}
+
+ui-nav-bar {
+  top: 0;
+  left: 0;
+  width: 100%;
+  .nav-bar-left,
+  .nav-bar-right {
+    position: relative;
+    width: 66px;
+    text-align: center;
+  }
+  .back {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    i {
+      margin-left: 10px;
+    }
+  }
+  .nav-bar-center-text {
+    .mix-text-overflow();
+  }
+}
+
+.ui-tab-bar {
+  &.div-scroll {
+    position: absolute;
+  }
+}
+
+.router-view {
+  width: 100%;
+}
+</style>
